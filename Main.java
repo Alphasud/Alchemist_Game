@@ -16,7 +16,7 @@ public class Main {
         JButton startButton, choice1, choice2, choice3, choice4;
         JTextArea mainTextArea;
 
-        int playerHP, fireballs, barricadeHP , doorHP, undeadHP, alchemistHP;
+        int playerHP, fireballs, barricadeHP , doorHP, undeadHP, alchemistHP, magicRing;
         String weapon, charm, position;
 
 
@@ -188,6 +188,10 @@ public class Main {
         choice2.setText("");
         choice3.setText("");
         choice4.setText("");
+        choice2.setVisible(false);
+        choice3.setVisible(false);
+        choice4.setVisible(false);
+
         }
        public void road() {
              position = "road";
@@ -196,14 +200,20 @@ public class Main {
              choice2.setText("Keep Walking.");
              choice3.setText("");
              choice4.setText("");
+             choice3.setVisible(false);
+             choice4.setVisible(false);
+
        }
        public void enterCastle() {
             position = "enterCastle";
             mainTextArea.setText("Location : Alley Way.\nAs you walk in the alley way, you feel yourself surrounded\nby a wave of fear.\nA grim atmosphere now envelops the surroundings.\nYou face a huge wooden door, will you open it ?");
-           choice1.setText("Yes !");
-           choice2.setText("No...");
-           choice3.setText("");
-           choice4.setText("");
+            choice1.setText("Yes !");
+            choice2.setText("No...");
+            choice3.setText("");
+            choice4.setText("");
+            choice3.setVisible(false);
+            choice4.setVisible(false);
+
        }
 
        public void atDoor() {
@@ -214,24 +224,21 @@ public class Main {
            hpLabelNumber.setText("" + playerHP);
            choice1.setText("Go left");
            choice2.setText("Go right");
-           choice3.setText("");
-           choice4.setText("");
+
        }
        public void goLeft(){
             position = "goLeft";
             mainTextArea.setText("Location : Left side of the castle.\nYou realize there is an open window on the left of the entrance.\nIt looks a bit high but you like a challenge...");
             choice1.setText("Climb");
             choice2.setText("return to door");
-            choice3.setText("");
-            choice4.setText("");
+
        }
        public void goRight() {
            position = "goRight";
            mainTextArea.setText("Location : Right side of the castle.\nHmmm there's nothing on this side.");
            choice1.setText("Go back");
            choice2.setText("");
-           choice3.setText("");
-           choice4.setText("");
+
        }
        public void hWindow(){
             position = "hWindow";
@@ -243,8 +250,7 @@ public class Main {
                    "\n***********************************************************************");
            choice1.setText("Cast charm !");
            choice2.setText("Go back");
-           choice3.setText("");
-           choice4.setText("");
+
        }
        public void tryCharm(){
             position = "tryCharm";
@@ -254,11 +260,13 @@ public class Main {
                         "\nYou manage to climb to the window before the spell wears off");
                 choice1.setText("Get inside !");
                 choice2.setText("");
+                choice2.setVisible(false);
             }else{ mainTextArea.setText("Pshiiit FFFRRRRHH the parchment burns and sets fire to your clothes, you run in vain and are severely injured." +
                     "you loose 100 years of life");
                     playerHP = playerHP - 100;
                     hpLabelNumber.setText("" + playerHP);
                     choice1.setText("");
+                    choice1.setVisible(false);
                     choice2.setText("Keep walking");
             }
            charm = "none";
@@ -271,7 +279,9 @@ public class Main {
                     "You hear a weird noise coming from the other end of the corridor." +
                     "\nOH NO ! It's a disgusting undead creature, and it's running towards you !");
             choice1.setText("Fight !");
+            choice1.setVisible(true);
             choice2.setText("Flee !");
+            choice2.setVisible(true);
 
        }
        public void outsideCastle(){
@@ -279,7 +289,9 @@ public class Main {
             mainTextArea.setText("You keep walking along the castle and notice a ladder leading up to a balcony.\nYou climb up and face a barricaded window\nyou have to break through !\nUse your dagger !" +
                     " A 50 Km/h hit should do the trick.\nBarricade resistance : " + barricadeHP);
             choice1.setText("Hit !");
+            choice1.setVisible(true);
             choice2.setText("");
+            choice2.setVisible(false);
        }
        public void bashingWindow(){
             position = "bashingWindow";
@@ -288,17 +300,23 @@ public class Main {
             if(strikespeed >= 50) {
                 mainTextArea.setText("Good Lord ! A " + strikespeed + " Km/h hit ! The barricade falls in pieces.\nBarricade resistance : " + (barricadeHP-strikespeed));
                 choice1.setText("Get inside");
+                choice1.setVisible(true);
                 choice2.setText("");
+                choice2.setVisible(false);
             } else { mainTextArea.setText("Only a " + strikespeed + " Km/h hit ! Keep trying.\nBarricade resistance : " + (barricadeHP-strikespeed));
             choice1.setText("");
+            choice1.setVisible(false);
             choice2.setText("Hit again");
+            choice2.setVisible(true);
             }
        }
        public void fightUndead(){
            position = "fightUndead";
            mainTextArea.setText("Okay so you're in for a fight ! You'll use a fireball spell, that will teach him !");
            choice1.setText("Cast fireball");
+           choice1.setVisible(true);
            choice2.setText("");
+           choice2.setVisible(false);
 
        }
        public void fleeUndead(){
@@ -306,6 +324,8 @@ public class Main {
             mainTextArea.setText("You are cornered, there is no escape, fighting is inevitable !");
             choice1.setText("Fight");
             choice2.setText("");
+            choice1.setVisible(true);
+            choice2.setVisible(false);
        }
        public void firstSpell(){
             position = "firstSpell";
@@ -313,7 +333,9 @@ public class Main {
                     "You gather all your energy, your hands start to glow. You aim at the poor creature and prepare to unleash your anger !" +
                     "\nHow hot is your fireball, is it enough ?\nUndead resistance : " + undeadHP);
             choice1.setText("Continue");
+            choice1.setVisible(true);
             choice2.setText("");
+            choice2.setVisible(false);
        }
        public void deadOrAlive(){
             position = "deadOrAlive";
@@ -323,12 +345,17 @@ public class Main {
            fireTemp+=400;
            if(fireTemp >= 800) {
                mainTextArea.setText("Whoa ! A " + fireTemp + "°C fireball ! Well done Wizard ! That undead scum is burnt to a crisp !" +
-               "\nUndead is...well, dead.");
+               "\nThe undead is...well, dead.");
                choice1.setText("");
+               choice1.setVisible(false);
                choice2.setText("Leave room");
+               choice2.setVisible(true);
            }else{ mainTextArea.setText("Aaah ! A " + fireTemp + "°C fireball... That's not enough, the enemy still lives ! Let's try again !" +
                    "\nUndead resistance :" + (undeadHP - fireTemp));
            choice1.setText("Shoot again");
+           choice1.setVisible(true);
+           choice2.setText("");
+           choice2.setVisible(false);
            }
 
 
@@ -338,13 +365,17 @@ public class Main {
             mainTextArea.setText("You arrive in a corridor, all the portraits on the wall look at you angrily. A heartwarming ray of sunlight emerge" +
                     "from a room at the end of the corridor, on the left side. This vision is rather reassuring. On the other side darkness embalms everything");
             choice1.setText("Go left");
+            choice1.setVisible(true);
             choice2.setText("Go right");
+            choice2.setVisible(true);
+
        }
        public void greenHouse(){
             position = "greenHouse";
             mainTextArea.setText("Location : Greenhouse.\nYou enter in what seems to be a greenhouse. Hundreds of plants are quietly sunbathing, covered in a kaleidoscopic" +
                     " collection of flowers. You barely have the time to enjoy this marvellous atmosphere and start suffocating. You quickly escape." +
-                    "and find a Poison Dagger on the floor.\nThe toxic pollen has entered your system and weakens you, you loose 50 years of life !");
+                    "and find a Poison Dagger on the floor.\nThe toxic pollen has entered your system and weakens you, you loose 50 years of life !" +
+                    "\n Poison Dagger added to you inventory.");
            playerHP = playerHP - 50;
            hpLabelNumber.setText("" + playerHP);
            weapon = "Poison Dagger";
@@ -371,15 +402,19 @@ public class Main {
            fireTemp2 += 500;
            int playerDamage = fireballNum*fireTemp2;
            if (doorHP-(fireballNum*fireTemp2) <= 0) {
-               mainTextArea.setText("You casted " + fireballNum + " fireballs, at " + fireTemp2 + "°C each !\nIron resistance : " + (doorHP - playerDamage) +
+               mainTextArea.setText("You casted " + fireballNum + " fireballs, at " + fireTemp2 + "°C each !" +
                        "\nThe door melts under those hellish " + playerDamage + " °C !");
                choice1.setText("Cross door");
+               choice1.setVisible(true);
                choice2.setText("");
+               choice2.setVisible(false);
            } else {
                mainTextArea.setText("You casted " + fireballNum + " fireballs, at " + fireTemp2 + "°C each !\nIron resistance : " + (doorHP- playerDamage) +
                        "\nThe door still stands, " + playerDamage + " °C is not enough to melt that iron...");
                choice1.setText("");
+               choice1.setVisible(false);
                choice2.setText("Try again");
+               choice2.setVisible(true);
            }
        }
        public void towerStairs() {
@@ -387,16 +422,22 @@ public class Main {
 
             if(weapon.equals("Poison Dagger")) {
                 mainTextArea.setText("You climb the stairs and notice a piece of paper trapped between a vine and the stonewall. You use your Poison Dagger " +
-                        "to cut through the vine and manage to collect the mysterious artifact...\nCongratulation you found a healing charm ! ");
+                        "to cut through the vine and manage to collect the mysterious artifact...\nCongratulation you found a healing charm !" +
+                        "\nHealing Charm added to your inventory. ");
                 charm = "Heal";
                 charmLabelNumber.setText("Heal");
                 choice1.setText("Go upstairs");
+                choice1.setVisible(true);
                 choice2.setText("");
+                choice2.setVisible(false);
             } else {
                 mainTextArea.setText("You climb the stairs and notice a piece of paper trapped between a vine and the stonewall but your" +
-                        " Dagger cannot cut through the plant...the parchment remains blocked");
+                        " Dagger cannot cut through the plant...the scroll remains blocked");
                 choice1.setText("Go upstairs");
-                choice2.setText("Go back"); }
+                choice2.setText("Go back");
+                choice2.setVisible(true);
+                choice1.setVisible(true);
+            }
        }
        public void towerTop() {
             position = "towerTop";
@@ -406,6 +447,8 @@ public class Main {
                     "in the making of a true philosopher's stone ! You deserve DEATH !");
             choice1.setText("Enter fight");
             choice2.setText("Escape !");
+            choice1.setVisible(true);
+            choice2.setVisible(true);
 
        }
        public void escape(){
@@ -413,6 +456,8 @@ public class Main {
             mainTextArea.setText("The Alchemist locked the tower, there is no escape.");
             choice1.setText("Enter fight");
             choice2.setText("");
+            choice1.setVisible(true);
+            choice2.setVisible(false);
        }
        public void alchemistFight(){
             position = "alchemistFight";
@@ -420,29 +465,39 @@ public class Main {
             choice1.setText("Hit");
            if (fireballs >= 1) {
                choice2.setText("Spell");
-           } else { choice2.setText("");}
-            choice3.setText("Use charm");
+               choice2.setVisible(true);
+
+           } else {
+               choice2.setText("");
+               choice2.setVisible(false);
+           }
+           if(charm == "Heal") {
+               choice3.setText("Use charm");
+               choice3.setVisible(true);
+           } else {choice3.setVisible(false);}
        }
        public void playerHit(){
             position = "playerHit";
-            int playerDamage = 30;
+            int playerDamage = 0;
             if(weapon.equals("Poison Dagger")){
-                playerDamage = new java.util.Random().nextInt(200);
+                playerDamage = new java.util.Random().nextInt(200)+ 100;
             } else if(weapon.equals("Dagger")){
-                playerDamage = new java.util.Random().nextInt(100);
+                playerDamage = new java.util.Random().nextInt(100) + 50;
             }
             mainTextArea.setText("You hit the Alchemist at " + playerDamage + " Km/h !");
             alchemistHP = alchemistHP - playerDamage;
             choice1.setText(">>>");
             choice2.setText("");
+            choice2.setVisible(false);
             choice3.setText("");
+            choice3.setVisible(false);
        }
        public void playerSpell(){
             position = "playerSpell";
            fireballs = fireballs - 1;
            spellLabelName.setText("" + fireballs);
-           int spellDamage = 100;
-           spellDamage = new java.util.Random().nextInt(300);
+           int spellDamage;
+           spellDamage = new Random().nextInt(400) + 100;
            mainTextArea.setText("Your fireball burns the Alchemist at " + spellDamage + " °C !");
            alchemistHP = alchemistHP - spellDamage;
            choice1.setText(">>>");
@@ -464,6 +519,8 @@ public class Main {
             choice1.setText(">>>");
             choice2.setText("");
             choice3.setText("");
+            choice2.setVisible(false);
+            choice3.setVisible(false);
        }
        public void alchemistAttack(){
             position = "alchemistAttack";
@@ -471,7 +528,7 @@ public class Main {
            if(attackRoll == 0) {
                int alchemistDamage = 10;
                alchemistDamage = new java.util.Random().nextInt(30);
-               mainTextArea.setText("The Alchemist attacked you with a poison dart, you loose" + alchemistDamage + " years of life");
+               mainTextArea.setText("The Alchemist attacked you with a poison dart, you loose " + alchemistDamage + " years of life");
                playerHP = playerHP - alchemistDamage;
                hpLabelNumber.setText("" + playerHP);
            } else {
@@ -489,9 +546,25 @@ public class Main {
        public void win(){
             position = "win";
             mainTextArea.setText("CONGRATULATION wizard ! You killed the Alchemist, on his body you retrieve a 'Fire Sword', a" +
-                    "Magic Ring and a life charm ! You pick one potion from the shelf and drink it.\nYour health is restored as well as you magic abilities.");
+                    " Magic Ring and a life charm ! You pick one potion from the shelf and drink it.\nYour health is restored as well as you magic abilities." +
+                    "\n THE END.");
+
+            weapon = "Fire Sword";
+           weaponLabelName.setText(weapon);
+           charm = "Heal";
+           charmLabelNumber.setText("Heal");
+           playerHP = 150;
+           hpLabelNumber.setText(("" +playerHP));
+           magicRing = 1;
+           fireballs = 10;
+           spellLabelName.setText("fireballs");
+
+
            choice1.setText("Restart");
+           choice1.setVisible(true);
            choice2.setText("Quit");
+           choice2.setVisible(true);
+
 
        }
        public void lose(){
@@ -501,8 +574,9 @@ public class Main {
             choice1.setText("Restart");
             choice2.setText("Quit");
        }
-       public void restartGame(){
-            position = "restartGame";
+       public void quitGame(){
+            position = "quitGame";
+            System.exit(0);
 
        }
 
@@ -754,10 +828,13 @@ public class Main {
                             case "c2":
                                 playerSpell();
                                 break;
-                            case "c3": useCharm(); break;
+                            case "c3":
+                                useCharm();
+                                break;
                         }
                         break;
                     case "playerHit":
+                    case "playerSpell":
                         switch (yourChoice) {
                             case "c1":
                                 if(alchemistHP<1){
@@ -769,18 +846,6 @@ public class Main {
                                 break;
                         }
                         break;
-                    case "playerSpell":
-                         switch (yourChoice) {
-                            case "c1":
-                                if(alchemistHP<1) {
-                                    win();
-                                }
-                                else {
-                                    alchemistAttack();
-                                }
-                                break;
-                         }
-                         break;
                     case "useCharm" :
                         switch (yourChoice){
                             case "c1" : alchemistAttack(); break;
@@ -799,18 +864,15 @@ public class Main {
                         }
                         break;
                     case "lose" :
+                    case "win" :
                         switch (yourChoice){
-                            case "c1" : road();break;
-                            case "c2" : ; break;
+                            case "c1" : playerSetup(); break;
+                            case "c2" : quitGame(); break;
                         }
                         break;
 
 
-
-
-
-
-            }
+                }
 
 
 
