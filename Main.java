@@ -9,15 +9,19 @@ import java.util.Random;
 public class Main {
         JFrame window;
         Container con;
-        JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-        JLabel titleNameLabel, hpLabel, hpLabelNumber, spellLabel, spellLabelName, charmLabel, charmLabelNumber, weaponLabel, weaponLabelName;
-        Font titleFont = new Font("Baskerville", Font.ITALIC, 70);
-        Font normalFont = new Font("Courier", Font.PLAIN, 20);
+        JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, imagePanel, infoPanel;
+        JLabel titleNameLabel, hpLabel, hpLabelNumber, spellLabel, spellLabelName, charmLabel, charmLabelNumber,
+                weaponLabel, weaponLabelName, imageLabel, locationLabel, locationLabelName, enemyLabel, enemyLabelName,
+                inventoryLabel, inventoryLabelName, goldLabel, goldLabelName;
+        Font titleFont = new Font("Baskerville", Font.ITALIC, 60);
+        Font normalFont = new Font("Courier", Font.PLAIN, 17);
+        Font storyFont = new Font("Georgia", Font.PLAIN, 22);
         JButton startButton, choice1, choice2, choice3, choice4;
         JTextArea mainTextArea;
 
-        int playerHP, fireballs, barricadeHP , doorHP, undeadHP, alchemistHP, magicRing;
-        String weapon, charm, position;
+        int playerHP, fireballs, barricadeHP , doorHP, undeadHP, alchemistHP, gold;
+        String weapon, charm, position, ring;
+        ImageIcon image;
 
 
         TitleScreenHandler tsHandler = new TitleScreenHandler();
@@ -31,7 +35,7 @@ public class Main {
         public Main(){
 
             window = new JFrame();
-            window.setSize(1100, 600);
+            window.setSize(960, 800);
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.getContentPane().setBackground(Color.BLACK);
             window.setLayout(null);
@@ -39,7 +43,7 @@ public class Main {
             con = window.getContentPane();
 
             titleNamePanel = new JPanel();
-            titleNamePanel.setBounds(100, 100, 920, 150);
+            titleNamePanel.setBounds(30, 100, 900, 150);
             titleNamePanel.setBackground(Color.red);
 
             titleNameLabel = new JLabel("THE ALCHEMIST'S LAIR");
@@ -47,7 +51,7 @@ public class Main {
             titleNameLabel.setFont(titleFont);
 
             startButtonPanel = new JPanel();
-            startButtonPanel.setBounds(480, 400, 200, 100);
+            startButtonPanel.setBounds(400, 400, 200, 150);
             startButtonPanel.setBackground(Color.black);
 
             startButton = new JButton("START");
@@ -70,20 +74,22 @@ public class Main {
             startButtonPanel.setVisible(false);
 
             mainTextPanel = new JPanel();
-            mainTextPanel.setBounds(100, 100, 900, 250);
+            mainTextPanel.setBounds(10, 485, 900, 250);
             mainTextPanel.setBackground(Color.black);
+            mainTextPanel.setOpaque(false);
             con.add(mainTextPanel);
 
             mainTextArea = new JTextArea();
-            mainTextArea.setBounds(100, 100,900,250);
+            mainTextArea.setBounds(10, 485,900,250);
             mainTextArea.setBackground(Color.black);
+            mainTextArea.setOpaque(false);
             mainTextArea.setForeground(Color.white);
-            mainTextArea.setFont(normalFont);
+            mainTextArea.setFont(storyFont);
             mainTextArea.setLineWrap(true);
             mainTextPanel.add(mainTextArea);
 
             choiceButtonPanel = new JPanel();
-            choiceButtonPanel.setBounds(400, 400, 300, 150);
+            choiceButtonPanel.setBounds(650, 360, 300, 150);
             choiceButtonPanel.setBackground(Color.black);
             choiceButtonPanel.setLayout(new GridLayout(4,1));
             con.add(choiceButtonPanel);
@@ -125,10 +131,49 @@ public class Main {
            choice4.setActionCommand("c4");
            choiceButtonPanel.add(choice4);
 
+           infoPanel = new JPanel();
+           infoPanel.setBounds(650, 115, 300, 200);
+           infoPanel.setBackground(Color.cyan);
+           infoPanel.setLayout(new GridLayout(4,2));
+           con.add(infoPanel);
+           locationLabel = new JLabel("Location :");
+           locationLabel.setFont(normalFont);
+           locationLabel.setForeground(Color.black);
+           infoPanel.add(locationLabel);
+           locationLabelName = new JLabel();
+           locationLabelName.setFont(normalFont);
+           locationLabelName.setForeground(Color.black);
+           infoPanel.add(locationLabelName);
+           goldLabel = new JLabel("Gold :");
+           goldLabel.setFont(normalFont);
+           goldLabel.setForeground(Color.black);
+           infoPanel.add(goldLabel);
+           goldLabelName = new JLabel();
+           goldLabelName.setFont(normalFont);
+           goldLabelName.setForeground(Color.black);
+           infoPanel.add(goldLabelName);
+           inventoryLabel = new JLabel("Inventory :");
+           inventoryLabel.setFont(normalFont);
+           inventoryLabel.setForeground(Color.black);
+           infoPanel.add(inventoryLabel);
+           inventoryLabelName = new JLabel();
+           inventoryLabelName.setFont(normalFont);
+           inventoryLabelName.setForeground(Color.black);
+           infoPanel.add(inventoryLabelName);
+           enemyLabel = new JLabel("Enemy :");
+           enemyLabel.setFont(normalFont);
+           enemyLabel.setForeground(Color.black);
+           infoPanel.add(enemyLabel);
+           enemyLabelName = new JLabel();
+           enemyLabelName.setFont(normalFont);
+           enemyLabelName.setForeground(Color.black);
+           infoPanel.add(enemyLabelName);
+
+
             playerPanel = new JPanel();
-            playerPanel.setBounds(100, 15, 900, 50);
+            playerPanel.setBounds(650, 5, 300, 100);
             playerPanel.setBackground(Color.magenta);
-            playerPanel.setLayout(new GridLayout(2,4));
+            playerPanel.setLayout(new GridLayout(4, 2));
             con.add(playerPanel);
             hpLabel = new JLabel("Life :");
             hpLabel.setFont(normalFont);
@@ -163,6 +208,17 @@ public class Main {
             weaponLabelName.setForeground(Color.black);
             playerPanel.add(weaponLabelName);
 
+            imagePanel = new JPanel();
+            imagePanel.setBounds(0, 0, 640, 480);
+            imagePanel.setBackground(Color.black);
+
+            imageLabel = new JLabel();
+            image = new ImageIcon(".//ressources//road-castle.jpg");
+            imageLabel.setIcon(image);
+            imagePanel.add(imageLabel);
+
+            con.add(imagePanel);
+
             playerSetup();
 
        }
@@ -179,6 +235,9 @@ public class Main {
           spellLabelName.setText("" + fireballs);
           hpLabelNumber.setText("" + playerHP);
           charmLabelNumber.setText(charm);
+          gold = 0;
+          goldLabelName.setText("" + gold);
+
             road();
        }
         public void stayOnRoad(){
@@ -195,7 +254,8 @@ public class Main {
         }
        public void road() {
              position = "road";
-             mainTextArea.setText("Location : On the road.\nYou are to retrieve a very important magic artifact from\nthe big city of Dungaria.\nOn your way you pass by the entrance of an old,\ndeserted castle.");
+             locationLabelName.setText("Road");
+             mainTextArea.setText("You are to retrieve a very important magic artifact from the big city of Dungaria.\nOn your way you pass by the entrance of an old, deserted castle.");
              choice1.setText("Explore !");
              choice2.setText("Keep Walking.");
              choice3.setText("");
@@ -206,7 +266,8 @@ public class Main {
        }
        public void enterCastle() {
             position = "enterCastle";
-            mainTextArea.setText("Location : Alley Way.\nAs you walk in the alley way, you feel yourself surrounded\nby a wave of fear.\nA grim atmosphere now envelops the surroundings.\nYou face a huge wooden door, will you open it ?");
+           locationLabelName.setText("Alley Way.");
+            mainTextArea.setText("As you walk in the alley way, you feel yourself surrounded\nby a wave of fear.\nA grim atmosphere now envelops the surroundings.\nYou face a huge wooden door, will you open it ?");
             choice1.setText("Yes !");
             choice2.setText("No...");
             choice3.setText("");
@@ -218,7 +279,8 @@ public class Main {
 
        public void atDoor() {
            position = "atDoor";
-           mainTextArea.setText("Location : At the main door.\nYou press your body against the heavy door, as it slowly open\nyou feel intoxicated by a " +
+           locationLabelName.setText("Main Door");
+           mainTextArea.setText("You press your body against the heavy door, as it slowly open\nyou feel intoxicated by a " +
                    "disgusting smell, your head spins,\nyou almost faint. You are injured and loose 25 year of life");
            playerHP = playerHP - 25;
            hpLabelNumber.setText("" + playerHP);
@@ -228,21 +290,24 @@ public class Main {
        }
        public void goLeft(){
             position = "goLeft";
-            mainTextArea.setText("Location : Left side of the castle.\nYou realize there is an open window on the left of the entrance.\nIt looks a bit high but you like a challenge...");
+           locationLabelName.setText("Left side.");
+            mainTextArea.setText("You realize there is an open window on the left of the entrance.\nIt looks a bit high but you like a challenge...");
             choice1.setText("Climb");
             choice2.setText("return to door");
 
        }
        public void goRight() {
            position = "goRight";
-           mainTextArea.setText("Location : Right side of the castle.\nHmmm there's nothing on this side.");
+           locationLabelName.setText("Right side.");
+           mainTextArea.setText("Hmmm there's nothing on this side.");
            choice1.setText("Go back");
            choice2.setText("");
 
        }
        public void hWindow(){
             position = "hWindow";
-           mainTextArea.setText("Location : Under the window.\nThe window is actually higher than you thought, this is going to be" +
+           locationLabelName.setText("By the Window");
+           mainTextArea.setText("The window is actually higher than you thought, this is going to be" +
                    "\na tricky one.\nAs the magician that you are, you decide to use a lifting charm on\nyour own body." +
                    "\n***********************************************************************" +
                    "\nCharms are magic scrolls with formula written on them. After you cast one it becomes useless." +
@@ -254,6 +319,7 @@ public class Main {
        }
        public void tryCharm(){
             position = "tryCharm";
+           locationLabelName.setText("By the window.");
             int castRoll = randomGenerator.nextInt(3);
             if(castRoll == 1 || castRoll == 2) {
                 mainTextArea.setText("Pfiouuuu BANG ! Your body becomes as light as a feather and you start to slowly ascend !" +
@@ -268,13 +334,15 @@ public class Main {
                     choice1.setText("");
                     choice1.setVisible(false);
                     choice2.setText("Keep walking");
+                    choice2.setVisible(true);
             }
            charm = "none";
            charmLabelNumber.setText("none");
        }
        public void insideCastle(){
             position = "insideCastle";
-            mainTextArea.setText("Location : Study room.\nYou are now inside the castle, on the first floor. " +
+           locationLabelName.setText("Study Room");
+            mainTextArea.setText("You are now inside the castle, on the first floor. " +
                     "The room is dark and filled with antiques. You go and open a door that leads you to a corridor." +
                     "You hear a weird noise coming from the other end of the corridor." +
                     "\nOH NO ! It's a disgusting undead creature, and it's running towards you !");
@@ -286,6 +354,8 @@ public class Main {
        }
        public void outsideCastle(){
             position = "outsideCastle";
+           locationLabelName.setText("Behind castle.");
+           enemyLabelName.setText("Barricade");
             mainTextArea.setText("You keep walking along the castle and notice a ladder leading up to a balcony.\nYou climb up and face a barricaded window\nyou have to break through !\nUse your dagger !" +
                     " A 50 Km/h hit should do the trick.\nBarricade resistance : " + barricadeHP);
             choice1.setText("Hit !");
@@ -295,6 +365,7 @@ public class Main {
        }
        public void bashingWindow(){
             position = "bashingWindow";
+           locationLabelName.setText("Balcony.");
             int strikespeed = randomGenerator.nextInt(60);
             strikespeed+=10;
             if(strikespeed >= 50) {
@@ -312,6 +383,8 @@ public class Main {
        }
        public void fightUndead(){
            position = "fightUndead";
+           locationLabelName.setText("Study Room");
+           enemyLabelName.setText("Undead.");
            mainTextArea.setText("Okay so you're in for a fight ! You'll use a fireball spell, that will teach him !");
            choice1.setText("Cast fireball");
            choice1.setVisible(true);
@@ -321,6 +394,8 @@ public class Main {
        }
        public void fleeUndead(){
             position = "fleeUndead";
+           locationLabelName.setText("Study room.");
+           enemyLabelName.setText("Undead.");
             mainTextArea.setText("You are cornered, there is no escape, fighting is inevitable !");
             choice1.setText("Fight");
             choice2.setText("");
@@ -329,6 +404,8 @@ public class Main {
        }
        public void firstSpell(){
             position = "firstSpell";
+           locationLabelName.setText("Study room");
+           enemyLabelName.setText("Undead");
             mainTextArea.setText("Unfortunately you're not the best wizard there is, and you're also a bit rusty, to win this fight you will need to reach at least 800°C !" +
                     "You gather all your energy, your hands start to glow. You aim at the poor creature and prepare to unleash your anger !" +
                     "\nHow hot is your fireball, is it enough ?\nUndead resistance : " + undeadHP);
@@ -339,13 +416,15 @@ public class Main {
        }
        public void deadOrAlive(){
             position = "deadOrAlive";
+           locationLabelName.setText("Study room.");
+           enemyLabelName.setText("Undead.");
            fireballs = fireballs - 1;
            spellLabelName.setText("" + fireballs);
            int fireTemp = randomGenerator.nextInt(1000);
            fireTemp+=400;
            if(fireTemp >= 800) {
                mainTextArea.setText("Whoa ! A " + fireTemp + "°C fireball ! Well done Wizard ! That undead scum is burnt to a crisp !" +
-               "\nThe undead is...well, dead.");
+               "\nThe undead is...well, dead. You find 30 gold coins on his body.");
                choice1.setText("");
                choice1.setVisible(false);
                choice2.setText("Leave room");
@@ -362,6 +441,10 @@ public class Main {
        }
        public void corridor(){
             position = "corridor";
+           enemyLabelName.setText("");
+           locationLabelName.setText("Corridor.");
+           gold = gold + 30;
+           goldLabelName.setText("" + gold);
             mainTextArea.setText("You arrive in a corridor, all the portraits on the wall look at you angrily. A heartwarming ray of sunlight emerge" +
                     "from a room at the end of the corridor, on the left side. This vision is rather reassuring. On the other side darkness embalms everything");
             choice1.setText("Go left");
@@ -372,6 +455,8 @@ public class Main {
        }
        public void greenHouse(){
             position = "greenHouse";
+           enemyLabelName.setText("");
+           locationLabelName.setText("Greenhouse.");
             mainTextArea.setText("Location : Greenhouse.\nYou enter in what seems to be a greenhouse. Hundreds of plants are quietly sunbathing, covered in a kaleidoscopic" +
                     " collection of flowers. You barely have the time to enjoy this marvellous atmosphere and start suffocating. You quickly escape." +
                     "and find a Poison Dagger on the floor.\nThe toxic pollen has entered your system and weakens you, you loose 50 years of life !" +
@@ -386,7 +471,9 @@ public class Main {
        }
        public void darkCorner(){
             position = "darkCorner";
-            mainTextArea.setText("\nLocation : Corridor right.\nAfter long seconds your eyes finally adjust to the obscurity. You notice an  glowing iron cell door." +
+           enemyLabelName.setText("");
+           locationLabelName.setText("Corridor, right.");
+            mainTextArea.setText("After long seconds your eyes finally adjust to the obscurity. You notice an  glowing iron cell door." +
                     " Behind it, is a stone staircase leading up to a tower. Let's melt that door so we can keep going. To do that, " +
                     "cast several fireballs and see if it melts the iron, you need to reach 3000°C.\nIron resistance : " + doorHP);
             choice1.setText("Fireballs !");
@@ -394,6 +481,8 @@ public class Main {
        }
        public void ironDoor() {
            position = "ironDoor";
+           enemyLabelName.setText("");
+           locationLabelName.setText("Iron door.");
            int fireballNum = randomGenerator.nextInt(3);
            fireballNum += 1;
            fireballs = fireballs - (fireballNum+=1);
@@ -403,7 +492,7 @@ public class Main {
            int playerDamage = fireballNum*fireTemp2;
            if (doorHP-(fireballNum*fireTemp2) <= 0) {
                mainTextArea.setText("You casted " + fireballNum + " fireballs, at " + fireTemp2 + "°C each !" +
-                       "\nThe door melts under those hellish " + playerDamage + " °C !");
+                       "\nThe door melts under those hellish " + playerDamage + " °C ! \nYou found 50 gold coins behind the door ! ");
                choice1.setText("Cross door");
                choice1.setVisible(true);
                choice2.setText("");
@@ -419,6 +508,10 @@ public class Main {
        }
        public void towerStairs() {
             position = "towerStairs";
+           enemyLabelName.setText("");
+           locationLabelName.setText("Stairs");
+           gold = gold + 50;
+           goldLabelName.setText("" + gold);
 
             if(weapon.equals("Poison Dagger")) {
                 mainTextArea.setText("You climb the stairs and notice a piece of paper trapped between a vine and the stonewall. You use your Poison Dagger " +
@@ -441,6 +534,8 @@ public class Main {
        }
        public void towerTop() {
             position = "towerTop";
+           enemyLabelName.setText("Alchemist.");
+           locationLabelName.setText("Tower.");
             mainTextArea.setText("You reached the Alchemist's Lair ! Bravo ! Here lies all the secrets of the Alchemist" +
                     " enough to make you make you the greatest wizard in the world !\nBut wait...Something is not right, you can feel a presence..." +
                     "\nOH NO ! It's the Alchemist !\nAlchemist : You fool ! You interrupted my transmutation, I was almost\n" +
@@ -453,6 +548,8 @@ public class Main {
        }
        public void escape(){
             position = "escape";
+            enemyLabelName.setText("Alchemist.");
+            locationLabelName.setText("Tower.");
             mainTextArea.setText("The Alchemist locked the tower, there is no escape.");
             choice1.setText("Enter fight");
             choice2.setText("");
@@ -461,6 +558,8 @@ public class Main {
        }
        public void alchemistFight(){
             position = "alchemistFight";
+           enemyLabelName.setText("Alchemist.");
+            locationLabelName.setText("Tower.");
             mainTextArea.setText("Alchemist's defense : " + alchemistHP + "\nAttack him to save yourself !");
             choice1.setText("Hit");
            if (fireballs >= 1) {
@@ -478,6 +577,8 @@ public class Main {
        }
        public void playerHit(){
             position = "playerHit";
+           enemyLabelName.setText("Alchemist.");
+            locationLabelName.setText("Tower.");
             int playerDamage = 0;
             if(weapon.equals("Poison Dagger")){
                 playerDamage = new java.util.Random().nextInt(200)+ 100;
@@ -494,6 +595,8 @@ public class Main {
        }
        public void playerSpell(){
             position = "playerSpell";
+           enemyLabelName.setText("Alchemist.");
+           locationLabelName.setText("Tower.");
            fireballs = fireballs - 1;
            spellLabelName.setText("" + fireballs);
            int spellDamage;
@@ -506,6 +609,8 @@ public class Main {
        }
        public void useCharm(){
             position = "useCharm";
+           enemyLabelName.setText("Alchemist.");
+            locationLabelName.setText("Tower.");
             int castRoll = randomGenerator.nextInt(3);
             if(castRoll == 1 || castRoll == 2) {
                 mainTextArea.setText("Lucky you ! The charm worked, you gain 30 years of life !");
@@ -524,6 +629,8 @@ public class Main {
        }
        public void alchemistAttack(){
             position = "alchemistAttack";
+            enemyLabelName.setText("Alchemist.");
+            locationLabelName.setText("Tower.");
            int attackRoll = randomGenerator.nextInt(2);
            if(attackRoll == 0) {
                int alchemistDamage = 10;
@@ -545,17 +652,19 @@ public class Main {
        }
        public void win(){
             position = "win";
+            enemyLabelName.setText("");
+            locationLabelName.setText("Tower.");
             mainTextArea.setText("CONGRATULATION wizard ! You killed the Alchemist, on his body you retrieve a 'Fire Sword', a" +
                     " Magic Ring and a life charm ! You pick one potion from the shelf and drink it.\nYour health is restored as well as you magic abilities." +
                     "\n THE END.");
-
             weapon = "Fire Sword";
            weaponLabelName.setText(weapon);
            charm = "Heal";
            charmLabelNumber.setText("Heal");
            playerHP = 150;
            hpLabelNumber.setText(("" +playerHP));
-           magicRing = 1;
+           ring = "Copper Ring";
+           inventoryLabelName.setText(ring);
            fireballs = 10;
            spellLabelName.setText("fireballs");
 
@@ -569,6 +678,7 @@ public class Main {
        }
        public void lose(){
             position = "lose";
+            enemyLabelName.setText("");
 
             mainTextArea.setText("You died.\nYour corpse rots in the castle for eternity, everyone forgets about you.\n<GAME OVER>");
             choice1.setText("Restart");
